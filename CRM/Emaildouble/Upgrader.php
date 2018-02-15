@@ -51,10 +51,10 @@ class CRM_Emaildouble_Upgrader extends CRM_Emaildouble_Upgrader_Base {
         'sequential' => 1,
         'return' => "id",
         'name' => "emaildouble",
-      ));    
+      ));
       $optionGroupId = civicrm_api3('OptionGroup', 'delete', array(
         'id' => $optionGroupId,
-      ));    
+      ));
     }
     catch (CiviCRM_API3_Exception $e) {
     }

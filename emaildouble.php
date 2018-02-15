@@ -3,26 +3,24 @@
 require_once 'emaildouble.civix.php';
 use CRM_Emaildouble_ExtensionUtil as E;
 
-if (!function_exists('dsm')) {
-  function dsm($var) {
-    d($var);
-  }
-}
-
 /**
  * Implements hook_civicrm_buildForm().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_buildForm
  */
 function emaildouble_civicrm_buildForm($formName, &$form) {
-    
   if ($formName == 'CRM_Profile_Form_Edit') {
-    
+    $gid = $form->getVar('_gid');;
+    $settings = CRM_Emaildouble_Settings::getUFGroupSettings($gid);
+    if ($settings['is_emaildouble']) {
+      CRM_Core_Resources::singleton()->addCoreResources();
+      CRM_Core_Resources::singleton()->addScriptFile('com.joineryhq.emaildouble', 'js/CRM_Profile_Form_Edit.js');
+    }
   }
   elseif ($formName == 'CRM_UF_Form_Group') {
     // Create new field.
-    $form->addElement('checkbox', 'is_emaildouble', ts('Require double-entry of any email address(es)?'));
-    
+    $form->addElement('checkbox', 'is_emaildouble', E::ts('Require double-entry of primary email address (if field exists)?'));
+
     // Assign bhfe fields to the template, so our new field has a place to live.
     $tpl = CRM_Core_Smarty::singleton();
     $bhfe = $tpl->get_template_vars('beginHookFormElements');
@@ -31,10 +29,10 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
     }
     $bhfe[] = 'is_emaildouble';
     $form->assign('beginHookFormElements', $bhfe);
-    
+
     // Add javascript that will relocate our field to a sensible place in the form.
     CRM_Core_Resources::singleton()->addScriptFile('com.joineryhq.emaildouble', 'js/CRM_UF_Form_Group.js');
-    
+
     // Set defaults so our field has the right value.
     $gid = $form->getVar('_id');
     if ($gid) {

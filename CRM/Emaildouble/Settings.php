@@ -17,7 +17,7 @@ class CRM_Emaildouble_Settings {
     $settingJson = CRM_Utils_Array::value('value', $resultValue, '{}');
     return json_decode($settingJson, TRUE);
   }
-  
+
   public static function saveAllUFGRoupSettings($ufGroupId, $settings) {
     $settingName = "ufgroup_settings_{$ufGroupId}";
     $result = civicrm_api3('OptionValue', 'get', array(
@@ -25,9 +25,9 @@ class CRM_Emaildouble_Settings {
       'option_group_id' => "emaildouble",
       'name' => $settingName,
     ));
-    
+
     $createParams = array();
-    
+
     if ($optionValueId = CRM_Utils_Array::value('id', $result)) {
       $createParams['id'] = $optionValueId;
     }
@@ -35,7 +35,7 @@ class CRM_Emaildouble_Settings {
       $createParams['name'] = $settingName;
       $createParams['option_group_id'] = "emaildouble";
     }
-    
+
     // Add uf_group_id to settings. Without this, optionValue.create api was failing
     // to save new settings with a message like "value already exists in the database"
     // if the values for this ufGroup are the same as for some other ufGroup. So by
