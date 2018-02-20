@@ -9,14 +9,28 @@ use CRM_Emaildouble_ExtensionUtil as E;
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_buildForm
  */
 function emaildouble_civicrm_buildForm($formName, &$form) {
-  if ($formName == 'CRM_Profile_Form_Edit') {
+  // By default, don't add emaildouble field.
+  $isEmaildouble = FALSE;
+  // Determine whether emaildboule field is needed, for event online registration,
+  // contribution pages, and standalone forms.
+  if ($formName == 'CRM_Event_Form_Registration_Register') {
+    $eventId = $form->getVar('_eventId');
+    $isEmaildouble = _emaildouble_is_entity_emaildouble('CiviEvent', $eventId);
+  }
+  elseif ($formName == 'CRM_Contribute_Form_Contribution_Main') {
+    $pageId = $form->getVar('_id');
+    $isEmaildouble = _emaildouble_is_entity_emaildouble('CiviContribute', $pageId);
+  }
+  elseif (
+    $formName == 'CRM_Profile_Form_Edit'
+  ) {
     $gid = $form->getVar('_gid');;
     $settings = CRM_Emaildouble_Settings::getUFGroupSettings($gid);
     if ($settings['is_emaildouble']) {
-      CRM_Core_Resources::singleton()->addCoreResources();
-      CRM_Core_Resources::singleton()->addScriptFile('com.joineryhq.emaildouble', 'js/CRM_Profile_Form_Edit.js');
+      $isEmaildouble = TRUE;
     }
   }
+  // For the Profile edit settings form, add our custom configuration field.
   elseif ($formName == 'CRM_UF_Form_Group') {
     // Create new field.
     $form->addElement('checkbox', 'is_emaildouble', E::ts('Require double-entry of primary email address (if field exists)?'));
@@ -42,6 +56,13 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
       );
       $form->setDefaults($defaults);
     }
+  }
+
+  // If we determined above to add the emaildouble field, add the javascript
+  // that does so.
+  if ($isEmaildouble) {
+    CRM_Core_Resources::singleton()->addCoreResources();
+    CRM_Core_Resources::singleton()->addScriptFile('com.joineryhq.emaildouble', 'js/CRM_Profile_Form_Edit.js');
   }
 }
 
@@ -208,3 +229,53 @@ function emaildouble_civicrm_navigationMenu(&$menu) {
   ));
   _emaildouble_civix_navigationMenu($menu);
 } // */
+
+/**
+ * Determine whether to add emaildouble field for a given UFJoin entity.
+ *
+ * @param String $module 'module' parameter from UFJoin.get API. Supported
+ *  options are: CiviEvent, CiviContribute
+ * @param Integer $entityId 'entity_id' parameter from UFJoin.get API.
+ *
+ * @return boolean TRUE if the UFJoin exists for this entity with a profile that
+ *  has a "primary email" field. Otherwise FALSE.
+ */
+function _emaildouble_is_entity_emaildouble($module, $entityId) {
+  $isEmaildouble = FALSE;
+  if (!$entityId) {
+    return $isEmaildouble;
+  }
+
+  $validModules = array(
+    'CiviEvent',
+    'CiviContribute',
+  );
+  if (!in_array($module, $validModules)) {
+    return $isEmaildouble;
+  }
+
+  $params = array(
+    'entity_id' => $entityId,
+    'module' => $module,
+  );
+  $result = civicrm_api3('UFJoin', 'get', $params);
+  $ufJoins = $result['values'];
+  foreach ($ufJoins as $value) {
+    $ufGroupId = $value['uf_group_id'];
+    $settings = CRM_Emaildouble_Settings::getUFGroupSettings($ufGroupId);
+    if ($settings['is_emaildouble']) {
+      // This profile is set for emaildouble. If it also has a primary email field,
+      // then we'll treat it as emaildouble.
+      $result = civicrm_api3('UFField', 'get', array(
+        'uf_group_id' => $ufGroupId,
+        'field_name' => "email",
+        'location_type_id' => array('IS NULL' => 1),
+      ));
+      if ($result['count']) {
+        $isEmaildouble = TRUE;
+        break;
+      }
+    }
+  }
+  return $isEmaildouble;
+}
