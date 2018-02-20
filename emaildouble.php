@@ -241,25 +241,37 @@ function emaildouble_civicrm_navigationMenu(&$menu) {
  *  has a "primary email" field. Otherwise FALSE.
  */
 function _emaildouble_is_entity_emaildouble($module, $entityId) {
-  $isEmaildouble = FALSE;
+
+  if (CRM_Core_Session::singleton()->getLoggedInContactID()) {
+    // Don't use emaildouble for logged in users.
+    return FALSE;
+  }
+  // No entityId? Something's wrong. Return FALSE.
   if (!$entityId) {
-    return $isEmaildouble;
+    return FALSE;
   }
 
+  // Module is not supported? Return FALSE.
   $validModules = array(
     'CiviEvent',
     'CiviContribute',
   );
   if (!in_array($module, $validModules)) {
-    return $isEmaildouble;
+    return FALSE;
   }
 
+  // Default to FALSE.
+  $isEmaildouble = FALSE;
+
+  // Get all profiles (UFJoines for this entity).
   $params = array(
     'entity_id' => $entityId,
     'module' => $module,
   );
   $result = civicrm_api3('UFJoin', 'get', $params);
   $ufJoins = $result['values'];
+  // Check if each profile is both: a) set for emaildouble AND b) has a Primary
+  // Email field.
   foreach ($ufJoins as $value) {
     $ufGroupId = $value['uf_group_id'];
     $settings = CRM_Emaildouble_Settings::getUFGroupSettings($ufGroupId);
