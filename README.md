@@ -1,4 +1,4 @@
-# CiviCRM Email Double-Cfheck
+# CiviCRM Email Double-Check
 
 Especially where CiviCRM profiles are used for creating new CMS user accounts, it can be useful to ask the user to enter the email address twice, aiming to help reduce error on this important bit of information.
 
