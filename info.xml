@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <extension key="com.joineryhq.emaildouble" type="module">
   <file>emaildouble</file>
-  <name>Email Doublecheck</name>
+  <name>Email Double-Check</name>
   <description>For profiles so configured, create a duplicate email address field and ensure that the user enters the same email address twice, to help reduce input errors.</description>
   <license>GPL-3.0</license>
   <maintainer>
