@@ -10,14 +10,14 @@
   var emaildoubleEmailDoubleChange = function() {
     emaildoubleHasValue = Boolean(CRM.$('input#email-Primary-emaildouble').val());
     emaildoubleValidate();
-  }
+  };
 
   /**
    * Event handler: validate.
    */
   var emaildoubleValidateEvent = function(e) {
     emaildoubleValidate();
-  }
+  };
 
   /**
    * Handle validation on form submit.
@@ -27,7 +27,7 @@
       CRM.alert(ts('Email addresses do not match'), ts('Error'), 'error');
       e.preventDefault();
     }
-  }
+  };
 
   /**
    * Validate and show/hide error message.
@@ -54,7 +54,7 @@
       emaildoubleSetError(true);
       return false;
     }
-  }
+  };
 
   /**
    * Do actual comparison of field values.
@@ -62,10 +62,9 @@
    */
   var emaildoubleIsValid = function emaildoubleIsValid() {
     return (
-      CRM.$('input#email-Primary-emaildouble').val()
-      && (CRM.$('input#email-Primary').val() == CRM.$('input#email-Primary-emaildouble').val())
+      CRM.$('input#email-Primary-emaildouble').val() && (CRM.$('input#email-Primary').val() == CRM.$('input#email-Primary-emaildouble').val())
     );
-  }
+  };
 
   /**
    * Show/hide error message.
@@ -80,7 +79,7 @@
       $('span#emaildouble-error').hide();
       $('input#email-Primary-emaildouble').removeClass('crm-error error');
     }
-  }
+  };
 
   // Clone the "row" div for the primary email field.
   $tr_clone = CRM.$('input#email-Primary').closest('div.crm-section').clone();
@@ -103,7 +102,7 @@
   $emaildouble.val('');
 
   // Insert error message to show/hide.
-  $emaildouble.after('<span id="emaildouble-error" class="crm-error" style="display: none;">Email addresses do not match</span>')
+  $emaildouble.after('<span id="emaildouble-error" class="crm-error" style="display: none;">Email addresses do not match</span>');
   // Finally, insert our emaildouble field row in the right place.
   CRM.$('input#email-Primary').closest('div.crm-section').after($tr_clone);
 

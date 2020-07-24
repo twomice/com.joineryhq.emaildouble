@@ -1,7 +1,7 @@
 <?php
 
 // AUTO-GENERATED FILE -- Civix may overwrite any changes made to this file
-use CRM_Emaildouble_ExtensionUtil as E;
+// use CRM_Emaildouble_ExtensionUtil as E;
 
 /**
  * Base class which provides helpers to execute upgrade logic
@@ -11,7 +11,7 @@ class CRM_Emaildouble_Upgrader_Base {
   /**
    * @var varies, subclass of ttis
    */
-  static $instance;
+  public static $instance;
 
   /**
    * @var CRM_Queue_TaskContext
@@ -34,7 +34,7 @@ class CRM_Emaildouble_Upgrader_Base {
   private $revisions;
 
   /**
-   * @var boolean
+   * @var bool
    *   Flag to clean up extension revision data in civicrm_setting
    */
   private $revisionStorageIsDeprecated = FALSE;
@@ -42,7 +42,7 @@ class CRM_Emaildouble_Upgrader_Base {
   /**
    * Obtain a reference to the active upgrade handler.
    */
-  static public function instance() {
+  public static function instance() {
     if (!self::$instance) {
       // FIXME auto-generate
       self::$instance = new CRM_Emaildouble_Upgrader(
@@ -63,7 +63,7 @@ class CRM_Emaildouble_Upgrader_Base {
    * CRM_Emaildouble_Upgrader_Base::_queueAdapter($ctx, 'methodName', 'arg1', 'arg2');
    * @endcode
    */
-  static public function _queueAdapter() {
+  public static function _queueAdapter() {
     $instance = self::instance();
     $args = func_get_args();
     $instance->ctx = array_shift($args);

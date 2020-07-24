@@ -51,4 +51,5 @@ class CRM_Emaildouble_Settings {
       return FALSE;
     }
   }
+
 }
