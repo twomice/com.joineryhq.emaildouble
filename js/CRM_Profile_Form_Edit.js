@@ -62,7 +62,8 @@
    */
   var emaildoubleIsValid = function emaildoubleIsValid() {
     return (
-      CRM.$('input#email-Primary-emaildouble').val() && (CRM.$('input#email-Primary').val() == CRM.$('input#email-Primary-emaildouble').val())
+      CRM.$('input#email-Primary-emaildouble').val() &&
+      (CRM.$('input#email-Primary').val() == CRM.$('input#email-Primary-emaildouble').val())
     );
   };
 

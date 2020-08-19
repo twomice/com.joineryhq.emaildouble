@@ -237,6 +237,8 @@ function emaildouble_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  *  options are: CiviEvent, CiviContribute
  * @param Integer $entityId 'entity_id' parameter from UFJoin.get API.
  *
+ * @return boolean TRUE if the UFJoin exists for this entity with a profile that
+ *  has a "primary email" field. Otherwise FALSE.
  */
 function _emaildouble_is_entity_emaildouble($module, $entityId) {
 
