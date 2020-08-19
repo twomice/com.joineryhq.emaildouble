@@ -208,27 +208,27 @@ function emaildouble_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  * Implements hook_civicrm_preProcess().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function emaildouble_civicrm_preProcess($formName, &$form) {
+ */
+// function emaildouble_civicrm_preProcess($formName, &$form) {
 
-} // */
+// } // */
 
 /**
  * Implements hook_civicrm_navigationMenu().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
-function emaildouble_civicrm_navigationMenu(&$menu) {
-  _emaildouble_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => E::ts('The Page'),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _emaildouble_civix_navigationMenu($menu);
-} // */
+ */
+// function emaildouble_civicrm_navigationMenu(&$menu) {
+//   _emaildouble_civix_insert_navigation_menu($menu, NULL, array(
+//     'label' => E::ts('The Page'),
+//     'name' => 'the_page',
+//     'url' => 'civicrm/the-page',
+//     'permission' => 'access CiviReport,access CiviContribute',
+//     'operator' => 'OR',
+//     'separator' => 0,
+//   ));
+//   _emaildouble_civix_navigationMenu($menu);
+// } // */
 
 /**
  * Determine whether to add emaildouble field for a given UFJoin entity.
