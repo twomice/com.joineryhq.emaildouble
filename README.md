@@ -12,7 +12,7 @@ This extension uses JavaScript to create a duplicate email address field and to 
 This extension could benefit from the following improvements (among others that you may think of).
 
 * Support for non-JavaScript functionality, i.e., server-side validation.
-* Configurable error messages (but not that String Replacements can help with this).
+* Configurable error messages (but of course String Replacements can help with this).
 
 ## Support
 ![screenshot](/images/joinery-logo.png)
