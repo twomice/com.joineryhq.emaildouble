@@ -61,7 +61,6 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
   // If we determined above to add the emaildouble field, add the javascript
   // that does so.
   if ($isEmaildouble) {
-    CRM_Core_Resources::singleton()->addCoreResources();
     CRM_Core_Resources::singleton()->addScriptFile('com.joineryhq.emaildouble', 'js/CRM_Profile_Form_Edit.js');
   }
 }

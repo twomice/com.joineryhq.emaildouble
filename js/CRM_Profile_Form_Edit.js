@@ -48,10 +48,12 @@
     var isValid = emaildoubleIsValid();
     if (isValid) {
       emaildoubleSetError(false);
+      CRM.$('input#email-Primary').closest('form').data('crmBillingFormValid', true);
       return true;
     }
     else {
       emaildoubleSetError(true);
+      CRM.$('input#email-Primary').closest('form').data('crmBillingFormValid', false);
       return false;
     }
   };
