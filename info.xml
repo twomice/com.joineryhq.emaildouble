@@ -18,10 +18,16 @@
   <version>1.2.0</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>5.58</ver>
+    <ver>5.74</ver>
   </compatibility>
-  <comments></comments>
+  <comments/>
   <civix>
     <namespace>CRM/Emaildouble</namespace>
+    <format>23.02.1</format>
   </civix>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <upgrader>CRM_Emaildouble_Upgrader</upgrader>
 </extension>
