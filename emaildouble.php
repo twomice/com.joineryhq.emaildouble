@@ -21,9 +21,11 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
     $pageId = $form->getVar('_id');
     $isEmaildouble = _emaildouble_is_entity_emaildouble('CiviContribute', $pageId);
   }
-  elseif (
-    $formName == 'CRM_Profile_Form_Edit'
-  ) {
+  elseif ($formName == 'CRM_Campaign_Form_Petition_Signature') {
+    $pageId = $form->getVar('_surveyId');
+    $isEmaildouble = _emaildouble_is_entity_emaildouble('CiviCampaign', $pageId);
+  }
+  elseif ($formName == 'CRM_Profile_Form_Edit') {
     $gid = $form->getVar('_gid');;
     $settings = CRM_Emaildouble_Settings::getUFGroupSettings($gid);
     if ($settings['is_emaildouble']) {
@@ -161,6 +163,7 @@ function _emaildouble_is_entity_emaildouble($module, $entityId) {
   $validModules = array(
     'CiviEvent',
     'CiviContribute',
+    'CiviCampaign',
   );
   if (!in_array($module, $validModules)) {
     return FALSE;
