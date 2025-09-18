@@ -39,7 +39,7 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
 
     // Assign bhfe fields to the template, so our new field has a place to live.
     $tpl = CRM_Core_Smarty::singleton();
-    $bhfe = $tpl->get_template_vars('beginHookFormElements');
+    $bhfe = $tpl->getTemplateVars('beginHookFormElements');
     if (!$bhfe) {
       $bhfe = array();
     }
