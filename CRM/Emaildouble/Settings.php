@@ -47,7 +47,7 @@ class CRM_Emaildouble_Settings {
       civicrm_api3('optionValue', 'create', $createParams);
       return TRUE;
     }
-    catch (CiviCRM_API3_Exception $e) {
+    catch (CRM_Core_Exception $e) {
       return FALSE;
     }
   }
