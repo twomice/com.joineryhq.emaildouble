@@ -23,11 +23,14 @@
   <comments/>
   <civix>
     <namespace>CRM/Emaildouble</namespace>
-    <format>23.02.1</format>
+    <format>25.10.2</format>
   </civix>
   <classloader>
     <psr0 prefix="CRM_" path="."/>
     <psr4 prefix="Civi\" path="Civi"/>
   </classloader>
-  <upgrader>CRM_Emaildouble_Upgrader</upgrader>
+  <upgrader>CiviMix\Schema\Emaildouble\AutomaticUpgrader</upgrader>
+  <mixins>
+    <mixin>scan-classes@1.0.0</mixin>
+  </mixins>
 </extension>
