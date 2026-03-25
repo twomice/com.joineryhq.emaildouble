@@ -16,6 +16,6 @@ This extension could benefit from the following improvements (among others that 
 
 ## Support
 
-Support for this package is handled under Joinery's ["As-Is Support" policy](https://joineryhq.com/software-support-levels#as-is-support).
+Support for this package is handled under Joinery's ["Limited Support" policy](https://joineryhq.com/software-support-levels#limited-support).
 
 Public issue queue for this package: https://github.com/twomice/com.joineryhq.emaildouble/issues
