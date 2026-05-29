@@ -55,7 +55,7 @@ class CRM_Emaildouble_Upgrader extends CRM_Extension_Upgrader_Base {
         'id' => $optionGroupId,
       ));
     }
-    catch (CiviCRM_API3_Exception $e) {
+    catch (CRM_Core_Exception $e) {
     }
   }
 
