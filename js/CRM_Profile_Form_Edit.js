@@ -105,7 +105,7 @@
   $emaildouble.val('');
 
   // Insert error message to show/hide.
-  $emaildouble.after('<span id="emaildouble-error" class="crm-error" style="display: none;">Email addresses do not match</span>');
+  $emaildouble.after('<span id="emaildouble-error" class="crm-error" style="display: none;">' + ts('Email addresses do not match') + '</span>');
   // Finally, insert our emaildouble field row in the right place.
   CRM.$('input#email-Primary').closest('div.crm-section').after($tr_clone);
 
