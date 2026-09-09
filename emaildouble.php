@@ -26,7 +26,7 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
     $isEmaildouble = _emaildouble_is_entity_emaildouble('CiviCampaign', $pageId);
   }
   elseif ($formName == 'CRM_Profile_Form_Edit') {
-    $gid = $form->getVar('_gid');;
+    $gid = $form->getVar('_gid');
     $settings = CRM_Emaildouble_Settings::getUFGroupSettings($gid);
     if ($settings['is_emaildouble']) {
       $isEmaildouble = TRUE;
