@@ -13,14 +13,14 @@ class CRM_Emaildouble_Upgrader extends CRM_Extension_Upgrader_Base {
    * Ensure setup is good upon install.
    */
   public function install() {
-    $result = civicrm_api3('OptionGroup', 'create', array(
+    $result = civicrm_api3('OptionGroup', 'create', [
       'sequential' => 1,
       'name' => "emaildouble",
       'title' => "Email Double Extension Options",
       'is_active' => 1,
       'is_locked' => 1,
       'is_reserved' => 1,
-    ));
+    ]);
   }
 
   /**
@@ -46,14 +46,14 @@ class CRM_Emaildouble_Upgrader extends CRM_Extension_Upgrader_Base {
    */
   public function uninstall() {
     try {
-      $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', array(
+      $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', [
         'sequential' => 1,
         'return' => "id",
         'name' => "emaildouble",
-      ));
-      $optionGroupId = civicrm_api3('OptionGroup', 'delete', array(
+      ]);
+      $optionGroupId = civicrm_api3('OptionGroup', 'delete', [
         'id' => $optionGroupId,
-      ));
+      ]);
     }
     catch (CRM_Core_Exception $e) {
     }
