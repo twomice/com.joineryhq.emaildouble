@@ -41,7 +41,7 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
     $tpl = CRM_Core_Smarty::singleton();
     $bhfe = $tpl->getTemplateVars('beginHookFormElements');
     if (!$bhfe) {
-      $bhfe = array();
+      $bhfe = [];
     }
     $bhfe[] = 'is_emaildouble';
     $form->assign('beginHookFormElements', $bhfe);
@@ -53,9 +53,9 @@ function emaildouble_civicrm_buildForm($formName, &$form) {
     $gid = $form->getVar('_id');
     if ($gid) {
       $settings = CRM_Emaildouble_Settings::getUFGroupSettings($gid);
-      $defaults = array(
+      $defaults = [
         'is_emaildouble' => $settings['is_emaildouble'],
-      );
+      ];
       $form->setDefaults($defaults);
     }
   }
@@ -160,11 +160,11 @@ function _emaildouble_is_entity_emaildouble($module, $entityId) {
   }
 
   // Module is not supported? Return FALSE.
-  $validModules = array(
+  $validModules = [
     'CiviEvent',
     'CiviContribute',
     'CiviCampaign',
-  );
+  ];
   if (!in_array($module, $validModules)) {
     return FALSE;
   }
@@ -173,10 +173,10 @@ function _emaildouble_is_entity_emaildouble($module, $entityId) {
   $isEmaildouble = FALSE;
 
   // Get all profiles (UFJoines for this entity).
-  $params = array(
+  $params = [
     'entity_id' => $entityId,
     'module' => $module,
-  );
+  ];
   $result = civicrm_api3('UFJoin', 'get', $params);
   $ufJoins = $result['values'];
   // Check if each profile is both: a) set for emaildouble AND b) has a Primary
@@ -187,11 +187,11 @@ function _emaildouble_is_entity_emaildouble($module, $entityId) {
     if ($settings['is_emaildouble']) {
       // This profile is set for emaildouble. If it also has a primary email field,
       // then we'll treat it as emaildouble.
-      $result = civicrm_api3('UFField', 'get', array(
+      $result = civicrm_api3('UFField', 'get', [
         'uf_group_id' => $ufGroupId,
         'field_name' => "email",
-        'location_type_id' => array('IS NULL' => 1),
-      ));
+        'location_type_id' => ['IS NULL' => 1],
+      ]);
       if ($result['count']) {
         $isEmaildouble = TRUE;
         break;
