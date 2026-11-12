@@ -75,11 +75,11 @@
    */
   var emaildoubleSetError = function emaildoubleSetError(isError) {
     if (isError) {
-      $('span#emaildouble-error').show();
+      $('span#emaildouble-error').show().addClass('crm-error error');
       $('input#email-Primary-emaildouble').addClass('crm-error error');
     }
     else {
-      $('span#emaildouble-error').hide();
+      $('span#emaildouble-error').hide().removeClass('crm-error error');
       $('input#email-Primary-emaildouble').removeClass('crm-error error');
     }
   };
